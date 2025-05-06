@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>心跳告白信✉️</title>
+    <style>
+        body {
+            background: #000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            font-family: "Microsoft YaHei", sans-serif;
+        }
+        .container {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            color: #fff;
+        }
+        h1 {
+            font-size: 2.5em;
+            margin: 20px;
+            text-shadow: 0 0 10px #ff69b4;
+            animation: glow 2s infinite;
+        }
+        .btn {
+            padding: 15px 40px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            margin: 20px;
+            transition: all 0.3s;
+        }
+        #yesBtn {
+            background: #ff69b4;
+            color: white;
+        }
+        #noBtn {
+            background: #666;
+            color: #ccc;
+        }
+        .hearts {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        .heart {
+            position: absolute;
+            color: #ff69b4;
+            animation: float 6s linear infinite;
+            opacity: 0;
+        }
+        @keyframes glow {
+            0%, 100% { text-shadow: 0 0 10px #ff69b4; }
+            50% { text-shadow: 0 0 20px #ff69b4, 0 0 30px #ff1493; }
+        }
+        @keyframes float {
+            0% { transform: translateY(100vh) scale(0); opacity: 1; }
+            100% { transform: translateY(-100vh) scale(1.5); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="hearts" id="hearts"></div>
+    <div class="container">
+        <h1>杨嘉欣，我喜欢你很久了</h1>
+        <h1>你愿意成为我的女朋友吗？</h1>
+        <button class="btn" id="yesBtn">❤️ 我愿意！</button>
+        <button class="btn" id="noBtn">再考虑一下...</button>
+    </div>
+
+    <script>
+        // ====== 核心配置 ======
+        const config = {
+            targetName: "杨嘉欣",   // 修改名字
+            heartCount: 99,       // 点击"愿意"时飘落爱心数量
+            music: "https://cdn.jsdelivr.net/gh/your-repo/love.mp3" // 背景音乐URL
+        };
+
+        // ====== 互动逻辑 ======
+        document.getElementById('yesBtn').addEventListener('click', () => {
+            // 触发爱心雨
+            const hearts = document.getElementById('hearts');
+            for(let i=0; i<config.heartCount; i++){
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.innerHTML = '❤️';
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.animationDelay = Math.random() * 2 + 's';
+                hearts.appendChild(heart);
+            }
+            
+            // 播放音乐（可选）
+            const audio = new Audio(config.music);
+            audio.play();
+            
+            // 修改标题
+            document.title = `❤️ ${config.targetName}答应了！`;
+        });
+
+        document.getElementById('noBtn').addEventListener('mouseover', () => {
+            // 让"再考虑"按钮会逃跑
+            const btn = document.getElementById('noBtn');
+            btn.style.transform = `translate(${Math.random()*100-50}px, ${Math.random()*100-50}px)`;
+        });
+    </script>
+</body>
+</html>
